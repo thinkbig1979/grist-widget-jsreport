@@ -11,6 +11,7 @@
   <body>
     <div id="app">
       <button id="generate-quote-btn">Generate Quote</button>
+      <div id="quotename"></div>
     </div>
 
     <script>
@@ -22,7 +23,7 @@
       let fileName;
 
       grist.ready({
-        columns: ["DocumentName", "Template", "QuoteID"],
+        columns: ["QuoteName", "Template", "QuoteID"],
         requiredAccess: "read table",
       });
 
@@ -31,28 +32,17 @@
         // First check if all columns were mapped.
         if (mapped) {
           console.log(
-            `Using ${mappings.DocumentName} and ${mappings.QuoteID} and ${mappings.Template} columns`
+            `Using ${mappings.QuoteName} and ${mappings.QuoteID} and ${mappings.Template} columns`
           );
-          // const recordTemplate = mapped.Template;
+
           const recordTemplate = JSON.parse(mapped.Template);
-          // console.log("mytemplate: ", recordTemplate);
-
-          // Define the variables
           baseURL = recordTemplate.url;
-          // console.log("baseURL: ", baseURL);
           template = recordTemplate.body.template;
-          // console.log("template: ", template);
           data = recordTemplate.body.data;
-          // console.log("data: ", data);
           authUser = recordTemplate.user;
-          // console.log("authuser: ", authUser);
           authPassword = recordTemplate.pw;
-          // console.log("pw: ", authPassword);
-          fileName = mapped.DocumentName;
-          // console.log("filename: ", fileName);
+          fileName = mapped.QuoteName;
           data.quoteID = mapped.QuoteID;
-          // console.log("quoteID: ", data.quoteID);
-
         } else {
           // Helper returned a null value. It means that not all
           // required columns were mapped.
@@ -75,28 +65,19 @@
             console.error("Error generating report:", error);
           }
         }
-        // function render() {
-          // const app = document.getElementById("app");
 
-          // Create button element
-          // const button = document.createElement("button");
-          // button.id = "generate-quote-btn";
-          // button.textContent = "Generate Quote";
+        document
+          .getElementById("quotename").innerHTML=fileName;
 
-          // Append button to the app div
-          // app.appendChild(button);
 
-          // Add event listener to the button
-          document
-            .getElementById("generate-quote-btn")
-            .addEventListener("click", async function () {
-              console.log("Click!!");
-              await getFile();
-            });
-          // }
-          // Call the render function to initialize the UI
-          // render();
+        document
+          .getElementById("generate-quote-btn")
+          .addEventListener("click", async function () {
+            console.log("Click!!");
+            await getFile();
+          });
       });
+
     </script>
   </body>
 </html>
