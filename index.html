@@ -12,6 +12,13 @@
     <div id="app"></div>
 
     <script>
+      let baseURL;
+      let template;
+      let data;
+      let authUser;
+      let authPassword;
+      let fileName;
+
       grist.ready({
         columns: ["DocumentName", "Template", "QuoteID"],
         requiredAccess: "read table",
@@ -29,21 +36,21 @@
           console.log("mytemplate: ", recordTemplate);
 
           // Define the variables
-          const baseURL = recordTemplate.url;
-          console.log("baseURL: ",baseURL);
-          const template = recordTemplate.body.template;
+          baseURL = recordTemplate.url;
+          console.log("baseURL: ", baseURL);
+          template = recordTemplate.body.template;
           console.log("template: ", template);
-          const data = recordTemplate.body.data;
+          data = recordTemplate.body.data;
           console.log("data: ", data);
-          const authUser = recordTemplate.user;
+          authUser = recordTemplate.user;
           console.log("authuser: ", authUser);
-          const authPassword = recordTemplate.pw;
+          authPassword = recordTemplate.pw;
           console.log("pw: ", authPassword);
-          const fileName = mapped.DocumentName;
+          fileName = mapped.DocumentName;
           console.log("filename: ", fileName);
           data.quoteID = mapped.QuoteID;
           console.log("quoteID: ", data.quoteID);
-
+          
         } else {
           // Helper returned a null value. It means that not all
           // required columns were mapped.
