@@ -23,7 +23,7 @@
         // First check if all columns were mapped.
         if (mapped) {
           console.log(
-            `Using ${mappings["Document Name"]} and ${mappings["Quote ID"]} and ${mappings.Template} columns`
+            `Using ${mappings.DocumentName} and ${mappings.QuoteID]} and ${mappings.Template} columns`
           );
         } else {
           // Helper returned a null value. It means that not all
@@ -37,7 +37,7 @@
         let data = record.mapped.Template.body.data;
         const authUser = record.mapped.Template.user;
         const authPassword = record.mapped.Template.pw;
-        const fileName = record.mapped["Document Name"];
+        const fileName = record.mapped.DocumentName;
         data.quoteID = mapped["Quote ID"];
 
         jsreport.headers["Authorization"] =
