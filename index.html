@@ -50,7 +50,90 @@
               data,
             });
             // download the output to the file
+            report.download(`${fileName}.pdf`);<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Quote</title>
+    <script src="https://unpkg.com/@jsreport/browser-client/dist/jsreport.umd.js"></script>
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      grist.ready({
+        columns: ["DocumentName", "Template", "QuoteID"],
+        requiredAccess: "read table",
+      });
+
+      grist.onRecord(function (record, mappings) {
+        const mapped = grist.mapColumnNames(record);
+        // First check if all columns were mapped.
+        if (mapped) {
+          console.log(
+            `Using ${mappings.DocumentName} and ${mappings.QuoteID} and ${mappings.Template} columns`
+          );
+        } else {
+          // Helper returned a null value. It means that not all
+          // required columns were mapped.
+          console.error("Please map all columns");
+        }
+
+        // Define the variables
+        const baseURL = record.mapped.Template.url;
+        let template = record.mapped.Template.body.template;
+        let data = record.mapped.Template.body.data;
+        const authUser = record.mapped.Template.user;
+        const authPassword = record.mapped.Template.pw;
+        const fileName = record.mapped.DocumentName;
+        data.quoteID = mapped["Quote ID"];
+
+        jsreport.headers["Authorization"] =
+          "Basic " + btoa(`${authUser}:${authPassword}`);
+        jsreport.serverUrl = baseURL;
+
+        async function getFile() {
+          try {
+            const report = await jsreport.render({
+              template,
+              data,
+            });
+            // download the output to the file
             report.download(`${fileName}.pdf`);
+          } catch (error) {
+            console.error("Error generating report:", error);
+          }
+        }
+      });
+
+      function render() {
+        const app = document.getElementById("app");
+
+        // Create button element
+        const button = document.createElement("button");
+        button.id = "generate-quote-btn";
+        button.textContent = "Generate Quote";
+
+        // Append button to the app div
+        app.appendChild(button);
+
+        // Add event listener to the button
+        document
+          .getElementById("generate-quote-btn")
+          .addEventListener("click", async function () {
+            console.log("Click!!");
+            await getFile();
+          });
+        // Call the render function to initialize the UI
+      }
+      render();
+    </script>
+  </body>
+</html>
+
           } catch (error) {
             console.error("Error generating report:", error);
           }
