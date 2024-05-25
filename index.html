@@ -24,7 +24,8 @@
           console.log(
             `Using ${mappings.DocumentName} and ${mappings.QuoteID} and ${mappings.Template} columns`
           );
-          const recordTemplate = JSON.parse(mapped.Template);
+          const testme = mapped.Template;
+          const recordTemplate = JSON.parse(testme);
           console.log("mytemplate: ", recordTemplate);
 
           // Define the variables
