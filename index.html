@@ -20,7 +20,19 @@
             requiredAccess: "read table"
         });
 
-        grist.onRecord(function (record) {
+
+        grist.onRecord(function (record, mappings) {
+            const mapped = grist.mapColumnNames(record);
+            // First check if all columns were mapped.
+            if (mapped) {
+                console.log(`Using ${mappings.["Document Name"]} and ${mappings.["Quote ID"]} and ${mappings.Template} columns`);
+            } else {
+                // Helper returned a null value. It means that not all
+                // required columns were mapped.
+                console.error("Please map all columns");
+            }
+
+
             // Define the variables
             const baseURL = record.mapped.Template.url;
             let template = record.mapped.Template.body.template;
