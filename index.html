@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Generate Quote</title>
     <script src="https://unpkg.com/@jsreport/browser-client/dist/jsreport.umd.js"></script>
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
   </head>
 
   <body>
@@ -71,6 +72,7 @@
           document
             .getElementById("generate-quote-btn")
             .addEventListener("click", async function () {
+                console.log("Click!!");
               await getFile();
             });
         }
