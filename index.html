@@ -26,11 +26,12 @@
           );
           const recordTemplate = mapped.Template;
           // console.log("testme: " testme)
-          // const recordTemplate = JSON.parse(testme);
+          const recordTemplate = JSON.parse(testme);
           console.log("mytemplate: ", recordTemplate);
 
           // Define the variables
           const baseURL = recordTemplate.url;
+          console.log(baseURL);
           const template = recordTemplate.body.template;
           console.log(template);
           const data = recordTemplate.body.data;
