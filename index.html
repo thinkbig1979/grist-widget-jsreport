@@ -9,7 +9,9 @@
   </head>
 
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <button id="generate-quote-btn">Generate Quote</button>
+    </div>
 
     <script>
       let baseURL;
@@ -33,24 +35,24 @@
           );
           // const recordTemplate = mapped.Template;
           const recordTemplate = JSON.parse(mapped.Template);
-          console.log("mytemplate: ", recordTemplate);
+          // console.log("mytemplate: ", recordTemplate);
 
           // Define the variables
           baseURL = recordTemplate.url;
-          console.log("baseURL: ", baseURL);
+          // console.log("baseURL: ", baseURL);
           template = recordTemplate.body.template;
-          console.log("template: ", template);
+          // console.log("template: ", template);
           data = recordTemplate.body.data;
-          console.log("data: ", data);
+          // console.log("data: ", data);
           authUser = recordTemplate.user;
-          console.log("authuser: ", authUser);
+          // console.log("authuser: ", authUser);
           authPassword = recordTemplate.pw;
-          console.log("pw: ", authPassword);
+          // console.log("pw: ", authPassword);
           fileName = mapped.DocumentName;
-          console.log("filename: ", fileName);
+          // console.log("filename: ", fileName);
           data.quoteID = mapped.QuoteID;
-          console.log("quoteID: ", data.quoteID);
-          
+          // console.log("quoteID: ", data.quoteID);
+
         } else {
           // Helper returned a null value. It means that not all
           // required columns were mapped.
@@ -73,16 +75,16 @@
             console.error("Error generating report:", error);
           }
         }
-        function render() {
-          const app = document.getElementById("app");
+        // function render() {
+          // const app = document.getElementById("app");
 
           // Create button element
-          const button = document.createElement("button");
-          button.id = "generate-quote-btn";
-          button.textContent = "Generate Quote";
+          // const button = document.createElement("button");
+          // button.id = "generate-quote-btn";
+          // button.textContent = "Generate Quote";
 
           // Append button to the app div
-          app.appendChild(button);
+          // app.appendChild(button);
 
           // Add event listener to the button
           document
@@ -91,9 +93,9 @@
               console.log("Click!!");
               await getFile();
             });
+          // }
           // Call the render function to initialize the UI
-        }
-        render();
+          // render();
       });
     </script>
   </body>
