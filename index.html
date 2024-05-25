@@ -24,6 +24,18 @@
           console.log(
             `Using ${mappings.DocumentName} and ${mappings.QuoteID} and ${mappings.Template} columns`
           );
+          const recordTemplate = JSON.parse(mapped.Template);
+          console.log("mytemplate: ", recordTemplate);
+
+          // Define the variables
+          const baseURL = recordTemplate.url;
+          let template = recordTemplate.body.template;
+          let data = recordTemplate.body.data;
+          const authUser = recordTemplate.user;
+          const authPassword = recordTemplate.pw;
+          const fileName = mapped.DocumentName;
+          data.quoteID = mapped.QuoteID;
+
           // console.log("mapped Template", mapped.Template);
           // console.log("mapped DocumentName", mapped.DocumentName);
           // console.log("mapped QuoteID", mapped.QuoteID);
@@ -32,16 +44,6 @@
           // required columns were mapped.
           console.error("Please map all columns");
         }
-        const recordTemplate = JSON.parse(mapped.Template); 
-        console.log("mytemplate: ", recordTemplate);
-        // Define the variables
-        const baseURL = recordTemplate.url;
-        let template = recordTemplate.body.template;
-        let data = recordTemplate.body.data;
-        const authUser = recordTemplate.user;
-        const authPassword = recordTemplate.pw;
-        const fileName = mapped.DocumentName;
-        data.quoteID = mapped.QuoteID;
 
         jsreport.headers["Authorization"] =
           "Basic " + btoa(`${authUser}:${authPassword}`);
@@ -61,15 +63,15 @@
         }
         function render() {
           const app = document.getElementById("app");
-  
+
           // Create button element
           const button = document.createElement("button");
           button.id = "generate-quote-btn";
           button.textContent = "Generate Quote";
-  
+
           // Append button to the app div
           app.appendChild(button);
-  
+
           // Add event listener to the button
           document
             .getElementById("generate-quote-btn")
@@ -81,7 +83,6 @@
         }
         render();
       });
-
     </script>
   </body>
 </html>
