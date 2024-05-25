@@ -24,6 +24,9 @@
           console.log(
             `Using ${mappings.DocumentName} and ${mappings.QuoteID} and ${mappings.Template} columns`
           );
+          console.log("mapped Template", mapped.Template);
+          console.log("mapped DocumentName", mapped.DocumentName);
+          console.log("mapped QuoteID", mapped.QuoteID);
         } else {
           // Helper returned a null value. It means that not all
           // required columns were mapped.
