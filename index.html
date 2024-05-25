@@ -10,7 +10,7 @@
 
   <body>
     <div id="app">
-      <button id="generate-quote-btn" type="button">Generate Quote</button>
+      <button id="generate-quote-btn">Generate Quote</button>
       <div id="quotename"></div>
     </div>
 
@@ -66,19 +66,19 @@
           }
         }
 
-        document
-          .getElementById("quotename").innerHTML=fileName;
+        document.getElementById("quotename").innerHTML = fileName;
 
+        const button = document.getElementById("generate-quote-btn");
 
-        document
-          .getElementById("generate-quote-btn")
-          .addEventListener("click", async function () {
-            event.stopPropagation();
+        if (!button.hasEventListener) {
+          button.addEventListener("click", async function () {
             console.log("Click!!");
+            event.stopPropagation();
             await getFile();
           });
+          button.hasEventListener = true; // Custom flag to indicate listener has been added
+        }
       });
-
     </script>
   </body>
 </html>
