@@ -10,10 +10,10 @@
 
   <body>
     <div id="app"></div>
-    
+
     <script>
       grist.ready({
-        columns: ['DocumentName', 'Template', 'QuoteID'],
+        columns: ["DocumentName", "Template", "QuoteID"],
         requiredAccess: "read table",
       });
 
@@ -55,30 +55,29 @@
             console.error("Error generating report:", error);
           }
         }
-
-        function render() {
-          const app = document.getElementById("app");
-
-          // Create button element
-          const button = document.createElement("button");
-          button.id = "generate-quote-btn";
-          button.textContent = "Generate Quote";
-
-          // Append button to the app div
-          app.appendChild(button);
-
-          // Add event listener to the button
-          document
-            .getElementById("generate-quote-btn")
-            .addEventListener("click", async function () {
-                console.log("Click!!");
-              await getFile();
-            });
-        }
-
-        // Call the render function to initialize the UI
-        render();
       });
+
+      function render() {
+        const app = document.getElementById("app");
+
+        // Create button element
+        const button = document.createElement("button");
+        button.id = "generate-quote-btn";
+        button.textContent = "Generate Quote";
+
+        // Append button to the app div
+        app.appendChild(button);
+
+        // Add event listener to the button
+        document
+          .getElementById("generate-quote-btn")
+          .addEventListener("click", async function () {
+            console.log("Click!!");
+            await getFile();
+          });
+        // Call the render function to initialize the UI
+      }
+      render();
     </script>
   </body>
 </html>
