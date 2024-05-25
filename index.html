@@ -73,6 +73,7 @@
         document
           .getElementById("generate-quote-btn")
           .addEventListener("click", async function () {
+            event.stopPropagation();
             console.log("Click!!");
             await getFile();
           });
