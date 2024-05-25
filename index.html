@@ -24,23 +24,24 @@
           console.log(
             `Using ${mappings.DocumentName} and ${mappings.QuoteID} and ${mappings.Template} columns`
           );
-          console.log("mapped Template", mapped.Template);
-          console.log("mapped DocumentName", mapped.DocumentName);
-          console.log("mapped QuoteID", mapped.QuoteID);
+          // console.log("mapped Template", mapped.Template);
+          // console.log("mapped DocumentName", mapped.DocumentName);
+          // console.log("mapped QuoteID", mapped.QuoteID);
         } else {
           // Helper returned a null value. It means that not all
           // required columns were mapped.
           console.error("Please map all columns");
         }
-
+        const recordTemplate = JSON.parse(mapped.Template);
+        console.log("rectodTemplate: ", recordTemplate);
         // Define the variables
-        // const baseURL = mapped.Template.url;
-        // let template = mapped.Template.body.template;
-        // let data = mapped.Template.body.data;
-        // const authUser = mapped.Template.user;
-        // const authPassword = mapped.Template.pw;
-        // const fileName = mapped.DocumentName;
-        // data.quoteID = mapped.QuoteID;
+        const baseURL = recordTemplate.url;
+        let template = recordTemplate.body.template;
+        let data = recordTemplate.body.data;
+        const authUser = recordTemplate.user;
+        const authPassword = recordTemplate.pw;
+        const fileName = mapped.DocumentName;
+        data.quoteID = mapped.QuoteID;
 
         jsreport.headers["Authorization"] =
           "Basic " + btoa(`${authUser}:${authPassword}`);
