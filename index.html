@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Quote</title>
+    <script src="https://unpkg.com/@jsreport/browser-client/dist/jsreport.umd.js"></script>
+  </head>
+
+  <body>
+    <button id="generate-quote-btn" style="background-color:orange;">
+        Generate Quote
+    </button>
+    <script>
+
+
+      grist.ready();
+      requiredAccess: "read table";
+
+      grist.onRecord(function (record) {
+        // Define the variables
+        const baseURL = record.template.url;
+        let template = record.template.body.template;
+        let data = record.template.body.data;
+        const authUser = record.template.user;
+        const authPassword = record.template.pw;
+        const fileName = record.CAT_Quote_ID;
+        data.quoteID = record.id;
+
+        jsreport.headers["Authorization"] =
+          "Basic " + btoa(`${authUser}:${authPassword}`);
+        jsreport.serverUrl = baseURL;
+
+        async function getFile() {
+          try {
+            const report = await jsreport.render({
+              template,
+              data,
+            });
+            // download the output to the file
+            report.download(`${fileName}.pdf`);
+          } catch (error) {
+            console.error("Error generating report:", error);
+          }
+        }
+        document
+          .getElementById("generate-quote-btn")
+          .addEventListener("click", async function () {
+            await getFile();
+          });
+      });
+    </script>
+  </body>
+</html>
